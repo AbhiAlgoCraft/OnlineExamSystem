@@ -49,11 +49,10 @@ public class LoginUI extends JFrame {
 
             } else {
                 JOptionPane.showMessageDialog(null, "Welcome Student!");
-                new StudentUI(user.getId());  // ✅ correct way
+                new StudentUI(user.getId());  
             }
 
-            dispose(); // close login window
-
+            dispose(); 
         } else {
             JOptionPane.showMessageDialog(null, "Invalid Credentials!");
         }

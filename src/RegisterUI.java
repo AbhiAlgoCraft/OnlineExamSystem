@@ -42,7 +42,7 @@ public class RegisterUI extends JFrame {
         registerButton.setBounds(100, 140, 100, 30);
         add(registerButton);
 
-        // Button Click Event
+       
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();

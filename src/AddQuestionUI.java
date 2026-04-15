@@ -44,7 +44,6 @@ public class AddQuestionUI extends JFrame {
             if (dao.addQuestion(q)) {
                 JOptionPane.showMessageDialog(null, "Question Added!");
 
-                // clear fields
                 qField.setText("");
                 o1.setText("");
                 o2.setText("");

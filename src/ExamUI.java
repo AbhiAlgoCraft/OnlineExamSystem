@@ -8,7 +8,7 @@ public class ExamUI extends JFrame {
     JRadioButton opt1, opt2, opt3, opt4;
     JButton nextBtn;
     JLabel timerLabel;
-    int timeLeft = 60; // seconds
+    int timeLeft = 30;
 
     ButtonGroup group;
 
@@ -58,7 +58,6 @@ public class ExamUI extends JFrame {
         nextBtn.setBounds(150, 200, 100, 30);
         add(nextBtn);
 
-        // Load questions
         UserDAO dao = new UserDAO();
         questions = dao.getQuestions();
 
@@ -79,7 +78,6 @@ public class ExamUI extends JFrame {
             }
         }
 
-        // Time over
         SwingUtilities.invokeLater(() -> finishExam());
 
     }).start();
@@ -93,8 +91,15 @@ public class ExamUI extends JFrame {
             else if (opt4.isSelected()) selected = opt4.getText();
 
             userAnswers.add(selected);
+            if (!opt1.isSelected() && !opt2.isSelected() && !opt3.isSelected() && !opt4.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Please select an answer!");
+            return;
+        }
 
             current++;
+                        if (current == questions.size() - 1) {
+            nextBtn.setText("Submit");
+            }
             if (current < questions.size()) {
                 loadQuestion();
             } if (current < questions.size()) {
@@ -102,6 +107,8 @@ public class ExamUI extends JFrame {
             } else {
                 finishExam();
             }
+
+
         });
 
         
@@ -112,8 +119,7 @@ public class ExamUI extends JFrame {
     void loadQuestion() {
         Question q = questions.get(current);
 
-        questionLabel.setText(q.getQuestion());
-        opt1.setText(q.getOpt1());
+        questionLabel.setText((current + 1) + ". " + q.getQuestion());        opt1.setText(q.getOpt1());
         opt2.setText(q.getOpt2());
         opt3.setText(q.getOpt3());
         opt4.setText(q.getOpt4());
