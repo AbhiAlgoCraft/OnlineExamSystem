@@ -7,6 +7,8 @@ public class ExamUI extends JFrame {
     JLabel questionLabel;
     JRadioButton opt1, opt2, opt3, opt4;
     JButton nextBtn;
+    JLabel timerLabel;
+    int timeLeft = 60; // seconds
 
     ButtonGroup group;
 
@@ -21,6 +23,10 @@ public class ExamUI extends JFrame {
         setTitle("Exam");
         setSize(400, 300);
         setLayout(null);
+
+        timerLabel = new JLabel("Time: 60");
+        timerLabel.setBounds(300, 10, 100, 25);
+        add(timerLabel);
 
         questionLabel = new JLabel();
         questionLabel.setBounds(20, 20, 350, 30);
@@ -57,6 +63,26 @@ public class ExamUI extends JFrame {
         questions = dao.getQuestions();
 
         loadQuestion();
+        
+        new Thread(() -> {
+        while (timeLeft > 0) {
+            try {
+                Thread.sleep(1000);
+                timeLeft--;
+
+                SwingUtilities.invokeLater(() -> {
+                    timerLabel.setText("Time: " + timeLeft);
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Time over
+        SwingUtilities.invokeLater(() -> finishExam());
+
+    }).start();
 
         nextBtn.addActionListener(e -> {
                 String selected = "";
@@ -71,20 +97,14 @@ public class ExamUI extends JFrame {
             current++;
             if (current < questions.size()) {
                 loadQuestion();
+            } if (current < questions.size()) {
+                loadQuestion();
             } else {
-               int score = 0;
-
-            for (int i = 0; i < questions.size(); i++) {
-                if (questions.get(i).getCorrect().equals(userAnswers.get(i))) {
-                    score++;
-                }
-            }
-
-            JOptionPane.showMessageDialog(null, "Your Score: " + score + "/" + questions.size());
-            dao.saveResult(userId, score);
-            nextBtn.setEnabled(false);
+                finishExam();
             }
         });
+
+        
 
         setVisible(true);
     }
@@ -100,6 +120,23 @@ public class ExamUI extends JFrame {
 
         group.clearSelection();
     }
+
+    void finishExam() {
+    int score = 0;
+
+    for (int i = 0; i < userAnswers.size(); i++) {
+        if (questions.get(i).getCorrect().equals(userAnswers.get(i))) {
+            score++;
+        }
+    }
+
+    JOptionPane.showMessageDialog(null, "Time Up! Your Score: " + score + "/" + questions.size());
+
+    UserDAO dao = new UserDAO();
+    dao.saveResult(userId, score);
+
+    nextBtn.setEnabled(false);
+}
 
     public static void main(String[] args) {
         new ExamUI(1);
