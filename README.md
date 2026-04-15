@@ -26,3 +26,20 @@ A desktop-based online examination system built using Java Swing and MySQL.
 - Result history dashboard
 - Better UI design
 - Web-based version
+
+  ## 📸 Screenshots
+
+### 🔐 Login Screen
+![Login](images/login.png)
+
+### 📝 Registration
+![Register](images/register.png)
+
+### 🛠️ Admin Panel
+![Admin](images/admin.png)
+
+### 🧪 Exam Screen
+![Exam](images/examscreen.png)
+
+### 📊 Result
+![Result](images/resultpopup.png)
