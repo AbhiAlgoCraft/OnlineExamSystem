@@ -1,8 +1,9 @@
 import javax.swing.*;
 
 public class StudentUI extends JFrame {
-
-    public StudentUI() {
+    int userId;
+    public StudentUI(int userId) {
+        this.userId = userId;
         setTitle("Student Dashboard");
         setSize(400, 300);
         setLayout(null);
@@ -15,8 +16,7 @@ public class StudentUI extends JFrame {
         JButton startExamBtn = new JButton("Start Exam");
         startExamBtn.setBounds(120, 100, 150, 30);
         add(startExamBtn);
-        startExamBtn.addActionListener(e -> new ExamUI());
-
+        startExamBtn.addActionListener(e -> new ExamUI(userId));
         setVisible(true);
     }
 }

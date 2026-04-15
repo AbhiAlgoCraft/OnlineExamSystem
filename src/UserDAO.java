@@ -27,7 +27,7 @@ public class UserDAO {
         }
     }
 
-    public User loginUser(String email, String password) {
+public User loginUser(String email, String password) {
     try {
         Connection conn = DBConnection.getConnection();
 
@@ -41,6 +41,7 @@ public class UserDAO {
 
         if (rs.next()) {
             return new User(
+                rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("email"),
                 rs.getString("password"),
@@ -52,7 +53,7 @@ public class UserDAO {
         e.printStackTrace();
     }
     return null;
- }
+}
 
  public boolean addQuestion(Question q) {
     try {
@@ -103,6 +104,24 @@ public ArrayList<Question> getQuestions() {
     }
 
     return list;
+}
+
+public void saveResult(int userId, int score) {
+    try {
+        Connection conn = DBConnection.getConnection();
+
+        String sql = "INSERT INTO results(user_id, exam_id, score) VALUES (?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, userId);
+        ps.setInt(2, 1); // default exam id
+        ps.setInt(3, score);
+
+        ps.executeUpdate();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
 
 }

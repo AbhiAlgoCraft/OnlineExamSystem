@@ -13,8 +13,11 @@ public class ExamUI extends JFrame {
     ArrayList<Question> questions;
     ArrayList<String> userAnswers = new ArrayList<>();
     int current = 0;
+    int userId;
 
-    public ExamUI() {
+    public ExamUI(int userId) {
+        this.userId = userId;
+        
         setTitle("Exam");
         setSize(400, 300);
         setLayout(null);
@@ -78,6 +81,8 @@ public class ExamUI extends JFrame {
             }
 
             JOptionPane.showMessageDialog(null, "Your Score: " + score + "/" + questions.size());
+            dao.saveResult(userId, score);
+            nextBtn.setEnabled(false);
             }
         });
 
@@ -97,6 +102,6 @@ public class ExamUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new ExamUI();
+        new ExamUI(1);
     }
 }

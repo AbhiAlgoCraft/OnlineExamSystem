@@ -1,7 +1,7 @@
 public class TestRegister {
     public static void main(String[] args) {
 
-        User user = new User("Abhi", "abhi@gmail.com", "1234", "student");
+        User user = new User(1,"Abhi", "abhi@gmail.com", "1234", "student");
 
         UserDAO dao = new UserDAO();
 

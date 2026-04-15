@@ -34,30 +34,31 @@ public class LoginUI extends JFrame {
         add(loginButton);
 
         loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String email = emailField.getText();
-                String password = new String(passwordField.getPassword());
+        public void actionPerformed(ActionEvent e) {
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
 
-                UserDAO dao = new UserDAO();
-                User user = dao.loginUser(email, password);
+        UserDAO dao = new UserDAO();
+        User user = dao.loginUser(email, password);
 
-                if (user != null) {
-                  if (user.getRole().equals("admin")) {
-                   JOptionPane.showMessageDialog(null, "Welcome Admin!");
-                   new AdminUI();
-                   } 
-                   else {
-                  JOptionPane.showMessageDialog(null, "Welcome Student!");
-                  new StudentUI();
-                  }
-                 dispose(); // close login window   
+        if (user != null) {
 
-                } 
-                else {
-                    JOptionPane.showMessageDialog(null, "Invalid Credentials!");
-                }
+            if (user.getRole().equals("admin")) {
+                JOptionPane.showMessageDialog(null, "Welcome Admin!");
+                new AdminUI();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Welcome Student!");
+                new StudentUI(user.getId());  // ✅ correct way
             }
-        });
+
+            dispose(); // close login window
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Credentials!");
+        }
+    }
+});
 
         setVisible(true);
     }
