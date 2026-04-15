@@ -15,6 +15,7 @@ public class StudentUI extends JFrame {
         JButton startExamBtn = new JButton("Start Exam");
         startExamBtn.setBounds(120, 100, 150, 30);
         add(startExamBtn);
+        startExamBtn.addActionListener(e -> new ExamUI());
 
         setVisible(true);
     }

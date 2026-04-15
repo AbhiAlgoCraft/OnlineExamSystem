@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class UserDAO {
 
@@ -73,6 +74,35 @@ public class UserDAO {
         e.printStackTrace();
         return false;
     }
+}
+
+public ArrayList<Question> getQuestions() {
+    ArrayList<Question> list = new ArrayList<>();
+
+    try {
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT * FROM questions";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Question q = new Question(
+                rs.getString("question"),
+                rs.getString("opt1"),
+                rs.getString("opt2"),
+                rs.getString("opt3"),
+                rs.getString("opt4"),
+                rs.getString("correct")
+            );
+            list.add(q);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
 }
 
 }
