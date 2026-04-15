@@ -20,7 +20,7 @@ A desktop-based online examination system built using Java Swing and MySQL.
 ## ▶️ How to Run
 1. Setup MySQL database
 2. Run the project in VS Code
-3. Start from LoginUI.java
+3. Start from RegisterUI.java then go to LoginUI.java
 
 ## 📊 Future Improvements
 - Result history dashboard
