@@ -36,7 +36,7 @@ A desktop-based online examination system built using Java Swing and MySQL.
 ![Register](images/register.png)
 
 ### 🛠️ Admin Panel
-![Admin](images/admin.png)
+![Admin](images/admin-2.png)
 
 ### 🧪 Exam Screen
 ![Exam](images/examscreen.png)
